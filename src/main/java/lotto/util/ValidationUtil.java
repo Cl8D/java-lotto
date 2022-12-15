@@ -37,7 +37,7 @@ public class ValidationUtil {
      */
     private int validateRemainder(String amount) {
         int purchaseAmount = Integer.parseInt(amount);
-        if (purchaseAmount % PURCHASE_AMOUNT_COND.getNumber() != 0) {
+        if (purchaseAmount % PURCHASE_AMOUNT_COND.getValue() != 0) {
             throw new IllegalArgumentException(PURCHASE_REMAINDER);
         }
 
@@ -64,7 +64,7 @@ public class ValidationUtil {
      * @param inputNums 당첨 번호 리스트
      */
     private void validateWinningCount(String[] inputNums) {
-        if (inputNums.length != MAX_COUNT.getNumber()) {
+        if (inputNums.length != MAX_COUNT.getValue()) {
             throw new IllegalArgumentException(NUMBER_COUNT);
         }
     }
@@ -87,7 +87,7 @@ public class ValidationUtil {
      * @param inputNums 당첨 번호 리스트
      */
     private void validateDuplicate(String[] inputNums) {
-        if (Arrays.stream(inputNums).distinct().count() != MAX_COUNT.getNumber()) {
+        if (Arrays.stream(inputNums).distinct().count() != MAX_COUNT.getValue()) {
             throw new IllegalArgumentException(NUMBER_DUPLICATE);
         }
     }
@@ -122,7 +122,7 @@ public class ValidationUtil {
      * @return 1~45 사이의 값이 아니라면 true, 맞다면 false
      */
     private boolean isNotCorrectRange(int number) {
-        return number < FIRST_RANGE.getNumber() || number > LAST_RANGE.getNumber();
+        return number < FIRST_RANGE.getValue() || number > LAST_RANGE.getValue();
     }
 }
 

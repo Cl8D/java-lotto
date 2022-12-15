@@ -1,13 +1,17 @@
 package lotto.domain;
 
 import lotto.util.MessageUtil;
+import lotto.view.OutputView;
 
 import java.util.List;
 import java.util.function.Predicate;
 
 import static lotto.constant.LottoPrice.*;
+import static lotto.constant.message.OutputMessage.WINNING_STATS;
 
 public class LottoPrize {
+
+    private final OutputView outputView = new OutputView();
 
     private final MessageUtil messageUtil = new MessageUtil();
 
@@ -20,7 +24,7 @@ public class LottoPrize {
     }
 
     public void getLottoStats(List<Lotto> userLottos, int purchaseAmount) {
-        messageUtil.printWinningStats();
+        outputView.printMessage(WINNING_STATS.getValue());
 
         for (Lotto userLotto : userLottos) {
             List<Integer> userLottoNums = userLotto.getLottoNumbers();
