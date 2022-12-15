@@ -3,16 +3,20 @@ package lotto.domain;
 import lotto.util.InputUtil;
 import lotto.util.MessageUtil;
 import lotto.util.ValidationUtil;
+import lotto.view.InputView;
+import lotto.view.OutputView;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static lotto.constant.message.InputMessage.BONUS;
+import static lotto.constant.message.InputMessage.WINNING;
+
 public class LottoWinningNumber {
 
-    private final InputUtil inputUtil = new InputUtil();
-
-    private final MessageUtil messageUtil = new MessageUtil();
+    private final InputView inputView = new InputView();
+    private final OutputView outputView = new OutputView();
 
     private final ValidationUtil validationUtil = new ValidationUtil();
 
@@ -36,8 +40,8 @@ public class LottoWinningNumber {
     }
 
     private List<Integer> getWinningNumbers() {
-        messageUtil.printWinningInput();
-        String winningNums = inputUtil.getUserInput();
+        outputView.printMessage(WINNING.getValue());
+        String winningNums = inputView.getUserInput();
         String[] winningAmount = validationUtil.validateWinningAmount(winningNums);
 
         return Arrays.stream(winningAmount)
@@ -46,8 +50,8 @@ public class LottoWinningNumber {
     }
 
     private int getBonusNumbers() {
-        messageUtil.printBonusInput();
-        int bonusNum = Integer.parseInt(inputUtil.getUserInput());
+        outputView.printMessage(BONUS.getValue());
+        int bonusNum = Integer.parseInt(inputView.getUserInput());
         validationUtil.validateBonusRange(bonusNum);
 
         return bonusNum;

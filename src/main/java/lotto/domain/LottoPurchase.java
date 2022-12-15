@@ -1,21 +1,24 @@
 package lotto.domain;
 
 import lotto.constant.LottoNumber;
-import lotto.util.InputUtil;
+import lotto.service.PurchaseService;
 import lotto.util.MessageUtil;
 import lotto.util.NumberUtil;
 import lotto.util.ValidationUtil;
+import lotto.view.InputView;
+import lotto.view.OutputView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static lotto.constant.message.OutputMessage.PURCHASE_COUNT;
+
 public class LottoPurchase {
 
-    private final InputUtil inputUtil = new InputUtil();
+    private final PurchaseService purchaseService = new PurchaseService();
 
     private final MessageUtil messageUtil = new MessageUtil();
 
-    private final ValidationUtil validationUtil = new ValidationUtil();
 
     private final NumberUtil numberUtil = new NumberUtil();
 
@@ -23,8 +26,10 @@ public class LottoPurchase {
 
     private int purchaseAmount;
 
+    private final OutputView outputView = new OutputView();
+
     public LottoPurchase getPurchaseInfo() {
-        int purchaseAmount = getUserPurchaseAmount();
+        int purchaseAmount = purchaseService.getUserPurchaseAmount();
         List<Lotto> userLottos = new ArrayList<>();
         int purchaseCount = getPurchaseCount(purchaseAmount);
 
@@ -39,14 +44,11 @@ public class LottoPurchase {
         return this;
     }
 
-    private int getUserPurchaseAmount() {
-        String purchaseAmount = inputUtil.getUserInput();
-        return validationUtil.validatePurchase(purchaseAmount);
-    }
+
 
     private int getPurchaseCount(int purchaseAmount) {
-        int purchaseCount = purchaseAmount / LottoNumber.PURCHASE_AMOUNT_COND.getNumber();
-        messageUtil.printPurchaseCount(purchaseCount);
+        int purchaseCount = purchaseAmount / LottoNumber.PURCHASE_AMOUNT_COND.getValue();
+        outputView.printParamMessage(PURCHASE_COUNT.getValue(), purchaseCount);
 
         return purchaseCount;
     }
