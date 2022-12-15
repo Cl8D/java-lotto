@@ -1,6 +1,8 @@
 package lotto.constant;
 
-public enum LottoNumber {
+import lotto.util.EnumUtil;
+
+public enum LottoNumber implements EnumUtil<Integer> {
 
     FIRST_RANGE(1)
     , LAST_RANGE(45)
@@ -14,7 +16,13 @@ public enum LottoNumber {
         this.number = number;
     }
 
-    public int getNumber() {
+    @Override
+    public String getKey() {
+        return name();
+    }
+
+    @Override
+    public Integer getValue() {
         return number;
     }
 }

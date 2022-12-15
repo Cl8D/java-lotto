@@ -1,6 +1,8 @@
 package lotto.constant.message;
 
-public enum InputMessage {
+import lotto.util.EnumUtil;
+
+public enum InputMessage implements EnumUtil<String> {
 
     PURCHASE("구입금액을 입력해 주세요.")
     , WINNING("당첨 번호를 입력해 주세요.")
@@ -13,7 +15,13 @@ public enum InputMessage {
         this.message = message;
     }
 
-    public String getMessage() {
+    @Override
+    public String getKey() {
+        return name();
+    }
+
+    @Override
+    public String getValue() {
         return message;
     }
 }
